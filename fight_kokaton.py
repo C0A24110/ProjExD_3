@@ -252,7 +252,7 @@ def main():
                         bird.change_img(6, screen)  # よろこびエフェクト
                         score.score += 1
                         explosion = Explosion(bomb.rct.center)
-                        if explosion is not None:
+                        if explosion is not None: # explosionがNoneじゃない場合んに爆発エフェクトを表示
                             explosion.update(screen)
             bombs = [bomb for bomb in bombs if bomb is not None]  # 撃ち落とされてない爆弾だけのリストにする
             beams = [beam for beam in beams if beam is not None] # 残ったビームだけにする
