@@ -184,6 +184,7 @@ class Explosion:
         爆発エフェクトを画面に転送
         引数 screen：画面Surface
         """
+        self.life -= 1
         screen.blit(self.img, self.rct)
 
 
