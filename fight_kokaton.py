@@ -171,6 +171,7 @@ def main():
                 if beam.rct.colliderect(bomb.rct):            # ビームと爆弾が衝突した場合，ビームをNoneにして爆弾を再生成
                     beam = None
                     bomb = None
+                    bird.change_img(6, screen)
 
         key_lst = pg.key.get_pressed()
         bird.update(key_lst, screen)
