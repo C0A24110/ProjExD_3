@@ -24,6 +24,29 @@ def check_bound(obj_rct: pg.Rect) -> tuple[bool, bool]:
         tate = False
     return yoko, tate
 
+class Score:
+    """
+    スコア表示クラス
+    """
+    def __init__(self, xy: tuple[int, int]):
+        """
+        スコア表示用のSurfaceを生成
+        引数 xy：スコア表示用の座標
+        """
+        self.fonto = pg.font.Font(None, 30)
+        self.score = 0
+        self.txt = self.fonto.render(str(self.score), True, (255, 0, 0))
+        self.rct = self.txt.get_rect()
+        self.rct.topleft = xy
+
+    def update(self, screen: pg.Surface):
+        """
+        画面を更新する
+        引数 screen：画面のSurface
+        """
+        self.txt = self.fonto.render(str(self.score), True, (255, 0, 0))
+        screen.blit(self.txt, self.rct)
+
 
 class Bird:
     """
@@ -146,9 +169,11 @@ def main():
     screen = pg.display.set_mode((WIDTH, HEIGHT))    
     bg_img = pg.image.load("fig/pg_bg.jpg")
     bird = Bird((300, 200))
+    score = Score((10, 10))
     beam = None
     # bomb = Bomb((255, 0, 0), 10)
     bombs = [Bomb((255, 0, 0), 10) for _ in range(NUM_OF_BOMBS)]
+    beams = []
     clock = pg.time.Clock()
     tmr = 0
     while True:
@@ -178,6 +203,7 @@ def main():
                     beam = None  # ビームを消す
                     bombs[j] = None  # 爆弾を消す
                     bird.change_img(6, screen)  # よろこびエフェクト
+                    score.score += 1
             bombs = [bomb for bomb in bombs if bomb is not None]  # 撃ち落とされてない爆弾だけのリストにする
 
         key_lst = pg.key.get_pressed()
@@ -186,6 +212,7 @@ def main():
             beam.update(screen)   
         for bomb in bombs:
             bomb.update(screen)
+        score.update(screen)
         pg.display.update()
         tmr += 1
         clock.tick(50)
