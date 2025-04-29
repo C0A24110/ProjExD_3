@@ -135,7 +135,7 @@ class Beam:
 
 class Bomb:
     """
-    爆弾に関するクラス
+    爆弾エフェクトクラス
     """
     def __init__(self, color: tuple[int, int, int], rad: int):
         """
@@ -163,26 +163,47 @@ class Bomb:
         self.rct.move_ip(self.vx, self.vy)
         screen.blit(self.img, self.rct)
 
+
 class Explosion:
     
     """
-    爆発エフェクトに関するクラス
+    爆発エフェクトクラス
     """
     def __init__(self, xy: tuple[int, int]):
         """
-        爆発エフェクト画像Surfaceを生成する
-        引数 xy：爆発エフェクト画像の初期位置座標タプル
+        爆発エフェクト画像Surfaceを生成
+        引数 xy：爆発エフェクト画像の座標
         """
         self.img = pg.image.load(f"fig/explosion.gif")
         self.rct = self.img.get_rect()
         self.rct.center = xy
+        self.life = 1
 
     def update(self, screen: pg.Surface):
         """
-        爆発エフェクトを画面に転送する
+        爆発エフェクトを画面に転送
         引数 screen：画面Surface
         """
         screen.blit(self.img, self.rct)
+
+
+class Direction:
+    """
+    こうかとん方向クラス
+    """
+    def __init__(self, bird: "Bird"):
+        """
+        こうかとんの向きを取得
+        引数 bird：こうかとん
+        """
+        self.bird = bird
+
+    def update(self, screen: pg.Surface):
+        """
+        こうかとんの向きを画面に転送
+        引数 screen：画面Surface
+        """
+        screen.blit(self.bird.img, self.bird.rct)
 
 
 def main():
