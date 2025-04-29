@@ -33,9 +33,9 @@ class Score:
         スコア表示用のSurfaceを生成
         引数 xy：スコア表示用の座標
         """
-        self.fonto = pg.font.Font(None, 30)
+        self.fonto = pg.font.SysFont("hgp創英角ﾎﾟｯﾌﾟ体", 30)
         self.score = 0
-        self.txt = self.fonto.render(str(self.score), True, (255, 0, 0))
+        self.txt = self.fonto.render("スコア : " + str(self.score), True, (0, 0, 255))
         self.rct = self.txt.get_rect()
         self.rct.topleft = xy
 
@@ -44,7 +44,7 @@ class Score:
         画面を更新する
         引数 screen：画面のSurface
         """
-        self.txt = self.fonto.render(str(self.score), True, (255, 0, 0))
+        self.txt = self.fonto.render("スコア : " + str(self.score), True, (0, 0, 255))
         screen.blit(self.txt, self.rct)
 
 
@@ -169,7 +169,7 @@ def main():
     screen = pg.display.set_mode((WIDTH, HEIGHT))    
     bg_img = pg.image.load("fig/pg_bg.jpg")
     bird = Bird((300, 200))
-    score = Score((10, 10))
+    score = Score((100, HEIGHT-50))
     beam = None
     # bomb = Bomb((255, 0, 0), 10)
     bombs = [Bomb((255, 0, 0), 10) for _ in range(NUM_OF_BOMBS)]
